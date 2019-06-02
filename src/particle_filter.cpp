@@ -20,7 +20,7 @@
 using namespace std;
 static default_random_engine gen;
 
-ParticleFilter::ParticleFilter():num_particles(0),is_initialized(false) {
+ParticleFilter::ParticleFilter():m_num_particles(0),m_is_initialized(false) {
     std::cout<<"Class ParticleFilter is construct!"<<endl;
 }
 
@@ -38,12 +38,12 @@ void ParticleFilter::init(double x,
 	// Add random Gaussian noise to each particle.
 	// NOTE: Consult particle_filter.h for more information about this method (and others in this file).
 	
-	num_particles =20;
+	m_num_particles =20;
 
 	normal_distribution<double> dist_x(x, std[0]);
 	normal_distribution<double> dist_y(y, std[1]);
 	normal_distribution<double> dist_theta(theta, std[2]);
-	for (int i = 0; i<num_particles; i++){
+	for (int i = 0; i<m_num_particles; i++){
 		Particle p;
 		p.id = i;
 		p.weight = 1.0;
@@ -53,15 +53,15 @@ void ParticleFilter::init(double x,
 		p.theta =dist_theta(gen);
 
 		particles.push_back(p);
-		weights.push_back(p.weight);
+		m_weights.push_back(p.weight);
 		cout <<"0 => init id->"<<p.id<<"  "<<"init px->"<< p.x<<"  "<<"init py->"<<p.y<<"  "<<"init ptheta->"<<p.theta<<endl;
 	}
-	is_initialized = true;
+	m_is_initialized = true;
 }
 
 const bool ParticleFilter::initialized() const {
     //std::cout<<"filter is initialized!"<<endl;
-    return is_initialized;
+    return m_is_initialized;
 }
 
 void ParticleFilter::prediction(double delta_t,
@@ -77,7 +77,7 @@ void ParticleFilter::prediction(double delta_t,
 	normal_distribution<double> dist_y1(0, std_pos[1]);
 	normal_distribution<double> dist_theta1(0, std_pos[2]);
 
-	for (int i = 0; i<num_particles;i++){
+	for (int i = 0; i<m_num_particles;i++){
 		if(fabs(yaw_rate)<0.0001){
 			particles[i].x += velocity*cos(particles[i].theta)*delta_t;
 			particles[i].y += velocity*sin(particles[i].theta)*delta_t;
@@ -141,7 +141,7 @@ void ParticleFilter::updateWeights(double sensor_range,
 	//   3.33
 	//   http://planning.cs.uiuc.edu/node99.html
 	double norm_sum = 0.0;
-	for(int i=0; i<num_particles;i++){
+	for(int i=0; i<m_num_particles;i++){
 		double px = particles[i].x;
 		double py = particles[i].y;
 		double ptheta = particles[i].theta;
@@ -204,9 +204,9 @@ void ParticleFilter::updateWeights(double sensor_range,
 		norm_sum += particles[i].weight;
 		//cout<<"3 => weight id-"<<particles[i].id<<"  "<<"weight-"<<particles[i].weight<<endl;
 	}
-	for(int i=0; i<num_particles;i++){
+	for(int i=0; i<m_num_particles;i++){
 		particles[i].weight /=norm_sum;
-		weights[i] =  particles[i].weight;
+		m_weights[i] =  particles[i].weight;
 	}
 }
 
@@ -214,7 +214,7 @@ void ParticleFilter::resample() {
 	// TODO: Resample particles with replacement with probability proportional to their weight. 
 	// NOTE: You may find std::discrete_distribution helpful here.
 	//   http://en.cppreference.com/w/cpp/numeric/random/discrete_distribution
-	uniform_int_distribution<int> un_int_dist(0, num_particles-1);
+	uniform_int_distribution<int> un_int_dist(0, m_num_particles-1);
 	int index = un_int_dist(gen);
 	double beta = 0.0;
 	vector<Particle> n_particles;
@@ -222,13 +222,13 @@ void ParticleFilter::resample() {
 	/*for(int i =0; i<num_particles;i++){
 		weights.push_back(particles[i].weight);
 	}*/
-	double wei_max = *max_element(weights.begin(), weights.end());
-	for(int j=0; j<num_particles;j++){
+	double wei_max = *max_element(m_weights.begin(), m_weights.end());
+	for(int j=0; j<m_num_particles;j++){
 		uniform_real_distribution<double> un_real_dist(0.0, wei_max);
 		beta += 2.0* un_real_dist(gen);
-		while(beta > weights[index]){
-			beta -= weights[index];
-			index = (index +1) %num_particles;
+		while(beta > m_weights[index]){
+			beta -= m_weights[index];
+			index = (index +1) %m_num_particles;
 		}
 		n_particles.push_back(particles[index]);
 		//cout<<"4 => resample"<<"  "<<j<<"-resample index-"<<index<<"  "<<"weight-"<<particles[index].weight<<endl;

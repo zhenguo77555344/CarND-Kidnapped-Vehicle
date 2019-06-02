@@ -101,13 +101,13 @@ public:
 
 private:
     // Number of particles to draw
-    int num_particles;
+    int m_num_particles;
 
     // Flag, if filter is initialized
-    bool is_initialized;
+    bool m_is_initialized;
 
     // Vector of weights of all particles
-    std::vector<double> weights;
+    std::vector<double> m_weights;
 
 };
 
