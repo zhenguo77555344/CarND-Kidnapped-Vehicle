@@ -134,6 +134,8 @@ int main()
 			double sense_y = std::stod(j[1]["sense_y"].get<std::string>());
 			double sense_theta = std::stod(j[1]["sense_theta"].get<std::string>());
 
+			cout<<"SIMU"<<"sense_x:"<<sense_x<<"sense_y:"<<sense_y<<"sense_theta:"<<sense_theta<<endl;
+
 			pf.init(sense_x, sense_y, sense_theta, sigma_pos);
 		  }
 		  else {
@@ -141,6 +143,7 @@ int main()
 		  	double previous_velocity = std::stod(j[1]["previous_velocity"].get<std::string>());
 			double previous_yawrate = std::stod(j[1]["previous_yawrate"].get<std::string>());
 
+			cout<<"SIMU"<<"previous_velocity:"<<previous_velocity<<"previous_yawrate:"<<previous_yawrate<<endl;
 			pf.prediction(delta_t, sigma_pos, previous_velocity, previous_yawrate);
 		  }
 
