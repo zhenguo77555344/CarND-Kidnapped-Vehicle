@@ -54,8 +54,12 @@ void ParticleFilter::init(double x,
 
 		particles.push_back(p);
 		m_weights.push_back(p.weight);
-		cout <<"0 => init id->"<<p.id<<"  "<<"init px->"<< p.x<<"  "<<"init py->"<<p.y<<"  "<<"init ptheta->"<<p.theta<<endl;
+		//p.id,p.x,p.y,p.theta
+		//cout <<"PF@init"<<","<<p.id<<","<< p.x<<","<<p.y<<","<<p.theta<<endl;
+		cout <<"PF@init"<<","<<particles.at(i).id<<","<<particles.at(i).x<<","<<particles.at(i).y<<","<<particles.at(i).theta<<","<<particles.at(i).weight<<endl;
+		
 	}
+	//cout <<"PF@init"<<","<< particles.at(0).id<<","<<particles.at(1).id<<","<<particles.at(2).id<<","<<particles.at(3).id<<","<<particles.at(4).id<<endl;
 	m_is_initialized = true;
 }
 
@@ -78,6 +82,7 @@ void ParticleFilter::prediction(double delta_t,
 	normal_distribution<double> dist_theta1(0, std_pos[2]);
 
 	for (int i = 0; i<m_num_particles;i++){
+		//vehicle was driven in a straint road
 		if(fabs(yaw_rate)<0.0001){
 			particles[i].x += velocity*cos(particles[i].theta)*delta_t;
 			particles[i].y += velocity*sin(particles[i].theta)*delta_t;
@@ -90,10 +95,8 @@ void ParticleFilter::prediction(double delta_t,
 		particles[i].x += dist_x1(gen);
 		particles[i].y += dist_y1(gen);
 		particles[i].theta += dist_theta1(gen);
-	
-		//cout << "1 => Prediction id-" << particles[i].id << "	"<<"x-" << particles[i].x << "	" \
-
-		 //           <<"y-" << particles[i].y << "  "<<"theta-" << particles[i].theta << " "<<"weight-" << particles[i].weight << endl;
+		
+		cout <<"PF@pre"<<","<< particles.at(i).id<<","<<particles.at(i).x<<","<<particles.at(i).y<<","<<particles.at(i).theta<<","<<particles.at(i).weight<<","<<velocity<<","<<yaw_rate<<","<<","<<i<<endl;
 	}
 
 }
@@ -115,7 +118,7 @@ void ParticleFilter::dataAssociation(std::vector<LandmarkObs> predicted,
 			double dis = (ob.x-pre.x)*(ob.x-pre.x)+(ob.y-pre.y)*(ob.y-pre.y);
 			if(dis<min_dis){
 				min_dis = dis;
-				id_near = pre.id;
+				id_near = pre.id;//particls.id
 				pre_index = j;
 			}
 		}
@@ -202,12 +205,14 @@ void ParticleFilter::updateWeights(double sensor_range,
 			}
 		}
 		norm_sum += particles[i].weight;
-		//cout<<"3 => weight id-"<<particles[i].id<<"  "<<"weight-"<<particles[i].weight<<endl;
+
 	}
 	for(int i=0; i<m_num_particles;i++){
 		particles[i].weight /=norm_sum;
 		m_weights[i] =  particles[i].weight;
+		cout <<"PF@UpdateWeights"<<","<< particles.at(i).id<<","<<particles.at(i).x<<","<<particles.at(i).y<<","<<particles.at(i).theta<<","<<particles.at(i).weight<<endl;
 	}
+	
 }
 
 void ParticleFilter::resample() {
@@ -216,6 +221,7 @@ void ParticleFilter::resample() {
 	//   http://en.cppreference.com/w/cpp/numeric/random/discrete_distribution
 	uniform_int_distribution<int> un_int_dist(0, m_num_particles-1);
 	int index = un_int_dist(gen);
+
 	double beta = 0.0;
 	vector<Particle> n_particles;
 	//vector<double> weights;
@@ -226,14 +232,20 @@ void ParticleFilter::resample() {
 	for(int j=0; j<m_num_particles;j++){
 		uniform_real_distribution<double> un_real_dist(0.0, wei_max);
 		beta += 2.0* un_real_dist(gen);
-		while(beta > m_weights[index]){
+		// the random chosen particl's weight is to low, then choose the next one 
+		while( m_weights[index]< beta){
 			beta -= m_weights[index];
 			index = (index +1) %m_num_particles;
 		}
 		n_particles.push_back(particles[index]);
-		//cout<<"4 => resample"<<"  "<<j<<"-resample index-"<<index<<"  "<<"weight-"<<particles[index].weight<<endl;
+		//cout <<"PF@Resample(o)"<<","<< particles.at(j).id<<","<<particles.at(j).x<<","<<particles.at(j).y<<","<<particles.at(j).theta<<","<<particles.at(j).weight<<endl;
+		//cout <<"PF@Resample(n)"<<","<< n_particles.at(j).id<<","<<n_particles.at(j).x<<","<<n_particles.at(j).y<<","<<n_particles.at(j).theta<<","<<n_particles.at(j).weight<<endl;
+		cout <<"PF@Resample"<<","<< n_particles.at(j).id<<","<<n_particles.at(j).x<<","<<n_particles.at(j).y<<","<<n_particles.at(j).theta<<","<<n_particles.at(j).weight<<endl;
+
 	}
-	particles = n_particles;	
+	particles = n_particles;
+
+
 }
 
 Particle ParticleFilter::SetAssociations(Particle& particle,

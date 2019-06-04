@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/helper_functions.h
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/helper_functions.h
 sstream
 -
 fstream
@@ -16,9 +16,9 @@ math.h
 vector
 -
 map.h
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/map.h
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/map.h
 
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/json.hpp
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/json.hpp
 algorithm
 -
 array
@@ -74,21 +74,21 @@ utility
 vector
 -
 
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/main.cpp
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/main.cpp
 uWS/uWS.h
 -
 iostream
 -
 json.hpp
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/json.hpp
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/json.hpp
 math.h
 -
 particle_filter.h
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/particle_filter.h
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/particle_filter.h
 
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/map.h
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/map.h
 
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/particle_filter.cpp
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/particle_filter.cpp
 random
 -
 algorithm
@@ -108,9 +108,9 @@ string
 iterator
 -
 particle_filter.h
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/particle_filter.h
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/particle_filter.h
 
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/particle_filter.h
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/particle_filter.h
 helper_functions.h
-/home/nick/Documents/Udacity/CarND-PF/CarND-Kidnapped-Vehicle/src/helper_functions.h
+/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/helper_functions.h
 
