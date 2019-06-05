@@ -6,8 +6,8 @@
 
 # Run particle filter
 cd ./build
-script -a log.csv
-#./particle_filter
+#script -a log.csv
+./particle_filter
 #exit:
 
 
