@@ -4,13 +4,14 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/main.cpp" "/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/build/CMakeFiles/particle_filter.dir/src/main.cpp.o"
-  "/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/src/particle_filter.cpp" "/Users/wazheng/Documents/2_Udacity/Udacity_Project/CarND-Kidnapped-Vehicle/build/CMakeFiles/particle_filter.dir/src/particle_filter.cpp.o"
+  "/Users/zhenguo/Documents/Udacity/CarND-Kidnapped-Vehicle/src/main.cpp" "/Users/zhenguo/Documents/Udacity/CarND-Kidnapped-Vehicle/build/CMakeFiles/particle_filter.dir/src/main.cpp.o"
+  "/Users/zhenguo/Documents/Udacity/CarND-Kidnapped-Vehicle/src/particle_filter.cpp" "/Users/zhenguo/Documents/Udacity/CarND-Kidnapped-Vehicle/build/CMakeFiles/particle_filter.dir/src/particle_filter.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
+  "/usr/local/include"
   "/usr/local/opt/openssl/include"
   )
 
